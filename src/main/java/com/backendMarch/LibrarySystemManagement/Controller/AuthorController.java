@@ -5,6 +5,8 @@ import com.backendMarch.LibrarySystemManagement.Entity.Author;
 import com.backendMarch.LibrarySystemManagement.Service.AuthorService;
 import org.hibernate.dialect.function.AbstractAnsiTrimEmulationFunction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,5 +27,16 @@ public class AuthorController {
     @GetMapping("/getAllAuthors")
     public List<Author> getAllAuthors(){
         return authorService.getAllAuthors();
+    }
+
+    @PostMapping("/deleteAuthor/{authorId}")
+    public ResponseEntity deleteAuthor(@PathVariable("authorId") int authorId){
+        String str;
+        try{
+            str = authorService.deleteAuthor(authorId);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(str, HttpStatus.ACCEPTED);
     }
 }

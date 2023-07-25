@@ -40,4 +40,8 @@ public class BookService {
 
         return bookResponseDto;
     }
+
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
+    }
 }

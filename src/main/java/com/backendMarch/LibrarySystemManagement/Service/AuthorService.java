@@ -27,4 +27,16 @@ public class AuthorService {
     public List<Author> getAllAuthors(){
         return authorRepository.findAll();
     }
+
+    public String deleteAuthor(int authorId) throws Exception {
+        Author author;
+        try{
+            author = authorRepository.findById(authorId).get();
+        }catch (Exception e){
+            throw new Exception("invalid authorId");
+        }
+
+        authorRepository.delete(author);
+        return "Author Deleted Successfully";
+    }
 }
